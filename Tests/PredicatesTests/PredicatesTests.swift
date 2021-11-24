@@ -16,6 +16,18 @@ final class PredicatesTests: XCTestCase {
     func testNotEqualsKeyPath() throws {
         XCTAssertEqual(Directions.allCases.filter(!\.rawValue.is4characters), [.south, .north])
     }
+    
+    struct Person { let name: String }
+    
+    let people = [Person(name: "Alice"), Person(name: "Bob"), Person(name: "Clarus")]
+    
+    func testEqualSubKeyPath() {
+        XCTAssertEqual(people.filter(\.name == "Alice").count, 1)
+    }
+    
+    func testNotEqualSubKeyPath() {
+        XCTAssertEqual(people.filter(\.name != "Alice").count, 2)
+    }
 }
 
 extension String {
