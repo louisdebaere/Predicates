@@ -2,10 +2,22 @@ import XCTest
 @testable import Predicates
 
 final class PredicatesTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(Predicates().text, "Hello, World!")
+    
+    enum Directions: String, CaseIterable { case east, west, south, north }
+    
+    func testEquals() throws {
+        XCTAssertEqual(Directions.allCases.filter(==.north), [.north])
     }
+    
+    func testNotEquals() throws {
+        XCTAssertEqual(Directions.allCases.filter(!=.north), [.east, .west, .south])
+    }
+    
+    func testNotEqualsKeyPath() throws {
+        XCTAssertEqual(Directions.allCases.filter(!\.rawValue.is4characters), [.south, .north])
+    }
+}
+
+extension String {
+    var is4characters: Bool { count == 4 }
 }
